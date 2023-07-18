@@ -1,0 +1,17 @@
+.header_login {
+    max-width: 880px;
+    padding: 45px 2% 0 2%;
+    margin: 0 auto 0;
+    border-bottom: 0.1px solid rgba(84, 84, 84, 0.7);
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  @media screen and (max-width: 700px){
+    .header_login {
+      padding: 28px 2% 0 8%;
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+  
