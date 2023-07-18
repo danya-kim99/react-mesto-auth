@@ -1,12 +1,12 @@
 import React from "react";
-import logoImage from "../images/header-logo.svg";
 import Header from "./Header";
+import AuthForm from "./AuthForm";
 
 function Login() {
   return (
     <>
         <Header name="sign-in"/>
-
+        <AuthForm name="sign-in"></AuthForm>
     </>
     
   );
