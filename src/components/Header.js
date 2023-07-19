@@ -3,6 +3,9 @@ import logoImage from "../images/header-logo.svg";
 import { Link } from "react-router-dom";
 
 function Header({email, name}) {
+  function signOut(){
+    localStorage.removeItem('token');
+  }
   return (
     <header className={"header header_login"}>
       <img className="header__logo" src={logoImage} alt="Лого сайта" />
@@ -10,7 +13,7 @@ function Header({email, name}) {
       { name === 'sign-in' && <Link className={"header__link"} to="/sign-up">Регистрация</Link> }
       { name === 'main' && <div style={{display: "flex"}}>
         <p className="header__user-email">{email}</p>
-        && <Link className={"header__link"} to="/sign-in">Выйти</Link>
+        && <Link className={"header__link"} onClick={signOut} to="sign-in">Выйти</Link>
       </div> }
       </header>
   );

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function AuthForm({name, onSubmit, onChange, formValue}) {
-  const navigate = useNavigate();
   return (
     <div className="authorization">
         <h2 className="authorization__title">{ name === "sign-up" ? "Регистрация" : "Вход" }</h2>

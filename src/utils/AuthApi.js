@@ -22,6 +22,35 @@
           return this._getResponseData(res, 'Не удалось зарегистрироваться.')
         });
     }
+
+    authorize(password, email) {
+      return fetch(`https://auth.nomoreparties.co/signin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({password, email})
+    })
+        .then(res => {
+          return this._getResponseData(res, 'Не удалось авторизоваться.')
+        });
+    }
+
+    checkToken(token) {
+      return fetch(`https://auth.nomoreparties.co/users/me`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+        .then(res => {
+          return this._getResponseData(res, 'Не удалось авторизоваться.')
+        });
+    }
+
+
+    
   }
 
   export const authApi = new AuthApi()

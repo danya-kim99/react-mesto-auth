@@ -2,12 +2,13 @@ import React from "react";
 import Main from "./Main";
 import Footer from "./Footer";
 import { api } from "../utils/Api";
+import { authApi } from "../utils/AuthApi";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import AddPlacePopup from "./AddPlacePopup";
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from "./Register";
@@ -26,6 +27,28 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [email, setEmail] = React.useState(null);
   const [isSuccess, setisSuccess] = React.useState(null);
+  const [loggedIn, setloggedIn] = React.useState(null);
+  const navigate = useNavigate();
+  
+  React.useEffect(() => {
+  tokenCheck();
+  }, [])
+
+function tokenCheck() {
+  if (localStorage.getItem('token')){
+    const token = localStorage.getItem('token');
+    authApi
+    .checkToken(token)
+    .then((res) => {
+      if (res) {
+        setEmail(res.data.email)
+        setloggedIn(true);
+        navigate("/", {replace: true})
+      }
+    })
+  }
+ } 
+  
 
   React.useEffect(() => {
     api
@@ -61,22 +84,12 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
-  function handleAuthorization() {
-    setIsAuthorizationPopupOpen(true)
-    console.log(isSuccess)
-  }
-
-  function handleAuthorizationChangeStatus(authStatus) {
-    setisSuccess(authStatus)
-  }
-
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAuthorizationPopupOpen(false);
     setSelectedCard(null);
-    console.log(isSuccess)
   }
 
   function handleCardLike(card) {
@@ -143,6 +156,18 @@ function App() {
       })
   }
 
+  function handleAuthorization() {
+    setIsAuthorizationPopupOpen(true)
+  }
+
+  function handleAuthorizationChangeStatus(authStatus) {
+    setisSuccess(authStatus)
+  }
+
+  function handleLogin() {
+    setloggedIn(true);
+  }
+
 
 
   return (
@@ -159,8 +184,9 @@ function App() {
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
             email={email}
+            loggedIn={loggedIn}
           />} />
-          <Route path="/sign-in" element={<Login />}></Route>
+          <Route path="/sign-in" element={<Login onLogin={handleLogin}/>}></Route>
           <Route path="/sign-up" element={<Register openAuthorizationPopup={handleAuthorization} handleAuthorizationChangeStatus={handleAuthorizationChangeStatus}/>}></Route>
           <Route path="*" element={<Navigate to="/" replace />}></Route>
         </Routes>
