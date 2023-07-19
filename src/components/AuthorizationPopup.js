@@ -1,7 +1,6 @@
 import React from "react";
 
 function AuthorizationPopup({isOpen, onClose}) {
-    isOpen=true
   return (
     <div className={`popup popup_type_authorization ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container popup__container_authorization">
