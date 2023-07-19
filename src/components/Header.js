@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Header({email, name}) {
   function signOut(){
-    localStorage.removeItem('token');
+    localStorage.removeItem('token'); //react-router-dom версии 6 и более не поддерживает хук useHistory, поэтому просто делаю редирект по ссылке
   }
   return (
     <header className={"header header_login"}>
