@@ -1,14 +1,15 @@
 import React from "react";
 
-function AuthorizationPopup({card, isOpen, onClose}) {
+function AuthorizationPopup({isOpen, onClose}) {
+    isOpen=true
   return (
-    <div className={`popup popup_type_image ${isOpen ? 'popup_opened' : ''}`}>
-      <div className="popup__container popup__container_image">
-        <img className="popup__image" src={card? card.link : "Загружаем..."}/>
-        <h2 className="popup__title popup__title_image">{card? card.name : "Загружаем..."}</h2>
+    <div className={`popup popup_type_authorization ${isOpen ? "popup_opened" : ""}`}>
+      <div className="popup__container popup__container_authorization">
+        <div className={`popup__authorization-status ${true ? "popup__authorization-status_success" : "popup__authorization-status_failed"}`}/>
+        <h2 className="popup__title_authorization">{true? "Вы успешно зарегистрировались!" : "Загружаем..."}</h2>
         <button
           type="button"
-          className="popup__close-button popup__close-button_image"
+          className="popup__close-button popup__close-button_authorization"
           onClick={onClose}
         />
       </div>

@@ -5,6 +5,13 @@
 
 /* popup */
 @import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/__authorization-status/popup__authorization-status.css);
+@import url(./blocks/popup/__authorization-status/_failed/popup__authorization-status_failed.css);
+@import url(./blocks/popup/__authorization-status/_success/popup__authorization-status_success.css);
+@import url(./blocks/popup/__close-button/_authorization/popup__close-button_authorization.css);
+@import url(./blocks/popup/__container/_authorization/popup__container_authorization.css);
+@import url(./blocks/popup/__title/_authorization/popup__title_authorization.css);
+@import url(./blocks/popup/_type/popup_type_authorization.css);
 @import url(./blocks/popup/_opened/popup_opened.css);
 @import url(./blocks/popup/__container/popup__container.css);
 @import url(./blocks/popup/__container/_image/popup__container_image.css);
@@ -35,7 +42,6 @@
 @import url(./blocks/authorization/__input/authorization__input.css);
 @import url(./blocks/authorization/__submit-button/authorization__submit-button.css);
 @import url(./blocks/authorization/__title/authorization__title.css);
-@import url(./blocks/authorization/authorization__popup/authorization__popup.css);
 
 /* profile */
 @import url(./blocks/profile/profile.css);

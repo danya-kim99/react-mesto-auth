@@ -1,8 +1,6 @@
 import React from "react";
-import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import { api } from "../utils/Api";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
@@ -13,6 +11,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from "./Register";
+import AuthorizationPopup from "./AuthorizationPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -20,6 +19,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
+  const [isAuthorizationPopupOpen, setAuthorizationPopupOpen] =
+    React.useState(false);  
   const [currentUser, setCurrentUser] = React.useState(null);
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState(null);
@@ -62,7 +63,8 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(null)
+    setAuthorizationPopupOpen(false);
+    setSelectedCard(null);
   }
 
   function handleCardLike(card) {
@@ -147,6 +149,7 @@ function App() {
           <Route path="/sign-in" element={<Login />}></Route>
           <Route path="/sign-up" element={<Register />}></Route>
         </Routes>
+
         <Footer />
         <ImagePopup card={selectedCard} isOpen={selectedCard} onClose={closeAllPopups} />
         <EditProfilePopup
@@ -161,6 +164,11 @@ function App() {
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddCard={handleAddCard}
+        />
+        <AuthorizationPopup
+          isOpen={isAuthorizationPopupOpen}
           onClose={closeAllPopups}
           onAddCard={handleAddCard}
         />
