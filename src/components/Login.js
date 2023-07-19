@@ -7,29 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 
 function Login({onLogin}) {
-  console.log("я отрисовался")
   const [formValue, setFormValue] = useState({
     password: '',
     email: ''
   });
 
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value
-    });
-  }
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = formValue;
     authApi.authorize(password, email)
       .then((res) => {
         localStorage.setItem('token', res.token);
-        onLogin();
+        onLogin(formValue.email);
         setFormValue({username: '', password: ''});
         navigate('/', {replace: true});
       })
@@ -39,8 +29,8 @@ function Login({onLogin}) {
     }
     return (
       <>
-        <Header name="sign-in" />
-        <AuthForm name="sign-in" onSubmit={ handleSubmit } onChange={ handleChange } formValue={ formValue }></AuthForm>
+        <Header />
+        <AuthForm name="sign-in" onSubmit={ handleSubmit } onChange={ setFormValue } formValue={ formValue }></AuthForm>
       </>
 
     );

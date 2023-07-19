@@ -164,8 +164,13 @@ function tokenCheck() {
     setisSuccess(authStatus)
   }
 
-  function handleLogin() {
+  function handleLogin(emailValue) {
     setloggedIn(true);
+    setEmail(emailValue)
+  }
+
+  function handleLogout() {
+    setEmail(null);
   }
 
 
@@ -183,6 +188,7 @@ function tokenCheck() {
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
+            logout={handleLogout}
             email={email}
             loggedIn={loggedIn}
           />} />
