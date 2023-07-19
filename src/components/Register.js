@@ -2,16 +2,14 @@ import React from "react";
 import Header from "./Header";
 import AuthForm from "./AuthForm";
 import { useState } from "react";
-import { register } from "../utils/AuthApi";
+import { authApi } from "../utils/AuthApi";
 
 
-function Register({openAuthorizationPopup}) {
+function Register({openAuthorizationPopup, handleAuthorizationChangeStatus}) {
   const [formValue, setFormValue ] = useState({
     password: '',
     email: ''
   });
-
-  const [isSuccess, setisSuccess] = useState(null);
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -24,12 +22,18 @@ function Register({openAuthorizationPopup}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = formValue;
-    register(password, email)
+    authApi.register( password, email )
     .then(() => {
-      
+      handleAuthorizationChangeStatus(true);
+      openAuthorizationPopup();
     })
-    .catch(console.log("400ka"));
-    console.log(formValue);
+    .catch((error) => {
+      handleAuthorizationChangeStatus(false);
+      openAuthorizationPopup();
+      console.error(error);
+    })
+    
+    
   }
 
   return (

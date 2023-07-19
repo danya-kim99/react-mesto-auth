@@ -19,12 +19,13 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
-  const [isAuthorizationPopupOpen, setAuthorizationPopupOpen] =
+  const [isAuthorizationPopupOpen, setIsAuthorizationPopupOpen] =
     React.useState(false);  
   const [currentUser, setCurrentUser] = React.useState(null);
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [email, setEmail] = React.useState(null);
+  const [isSuccess, setisSuccess] = React.useState(null);
 
   React.useEffect(() => {
     api
@@ -60,12 +61,22 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleAuthorization() {
+    setIsAuthorizationPopupOpen(true)
+    console.log(isSuccess)
+  }
+
+  function handleAuthorizationChangeStatus(authStatus) {
+    setisSuccess(authStatus)
+  }
+
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setAuthorizationPopupOpen(false);
+    setIsAuthorizationPopupOpen(false);
     setSelectedCard(null);
+    console.log(isSuccess)
   }
 
   function handleCardLike(card) {
@@ -82,7 +93,6 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    console.log(card)
     api
       .deleteCard(card._id)
       .then(() => {
@@ -133,7 +143,7 @@ function App() {
       })
   }
 
- function handleAuthorization(status) {}
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -151,7 +161,8 @@ function App() {
             email={email}
           />} />
           <Route path="/sign-in" element={<Login />}></Route>
-          <Route path="/sign-up" element={<Register openAuthorizationPopup={handleAuthorization} />}></Route>
+          <Route path="/sign-up" element={<Register openAuthorizationPopup={handleAuthorization} handleAuthorizationChangeStatus={handleAuthorizationChangeStatus}/>}></Route>
+          <Route path="*" element={<Navigate to="/" replace />}></Route>
         </Routes>
 
         <Footer />
@@ -174,7 +185,7 @@ function App() {
         <AuthorizationPopup
           isOpen={isAuthorizationPopupOpen}
           onClose={closeAllPopups}
-          onAuthorization={handleAuthorization}
+          authStatus={isSuccess}
         />
 
       </div>
