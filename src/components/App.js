@@ -24,6 +24,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState(null);
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState(null);
+  const [email, setEmail] = React.useState(null);
 
   React.useEffect(() => {
     api
@@ -132,6 +133,8 @@ function App() {
       })
   }
 
+ function handleAuthorization(status) {}
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -145,9 +148,10 @@ function App() {
             onCardClick={setSelectedCard}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
+            email={email}
           />} />
           <Route path="/sign-in" element={<Login />}></Route>
-          <Route path="/sign-up" element={<Register />}></Route>
+          <Route path="/sign-up" element={<Register openAuthorizationPopup={handleAuthorization} />}></Route>
         </Routes>
 
         <Footer />
@@ -170,7 +174,7 @@ function App() {
         <AuthorizationPopup
           isOpen={isAuthorizationPopupOpen}
           onClose={closeAllPopups}
-          onAddCard={handleAddCard}
+          onAuthorization={handleAuthorization}
         />
 
       </div>

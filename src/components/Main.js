@@ -3,11 +3,11 @@ import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 
-function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
+function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete, email }) {
   const currentUser = React.useContext(CurrentUserContext);
   return (
     <>
-    <Header name="main"/>
+    <Header email={email} name="main"/>
     <main className="main">
       <section className="profile">
         <button
